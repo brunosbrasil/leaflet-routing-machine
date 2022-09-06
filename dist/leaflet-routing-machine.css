@@ -34,6 +34,14 @@
     transition: all 0.2s ease;
 }
 
+.leaflet-routing-geocoders{
+    display: none;
+}
+
+.leaflet-routing-alt > h2{
+    display: none;
+}
+
 .leaflet-control-container .leaflet-routing-container-hide .leaflet-routing-alt, 
 .leaflet-control-container .leaflet-routing-container-hide .leaflet-routing-geocoders {
     display: none;
