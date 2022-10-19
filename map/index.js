@@ -19,14 +19,14 @@ function mapsRoutingPoints(points) {
 		shadowUrl: '../image/barril-de-petroleo.png',
 		iconSize: [35, 35],
 		shadowSize: [35, 35]
-	  });
+	});
 
 	(control == undefined) ? null : control.remove();
 	control = L.Routing.control(L.extend(window.lrmConfig, {
 		waypoints: listPoint,
 		createMarker: function (i, wp, nWps) {
 			return L.marker(wp.latLng, {
-				icon: oleoIcon 
+				icon: oleoIcon
 			});
 		},
 		geocoder: L.Control.Geocoder.nominatim(),
@@ -45,6 +45,20 @@ function mapsRoutingPoints(points) {
 	L.Routing.errorControl(control).addTo(map);
 }
 
-var points = [[-12.939036, -38.340930], [-12.951179, -38.384995], [-12.930545, -38.325996],
-[-12.930378, -38.357066],[-12.941838, -38.358912],[-12.948697, -38.361701]];
-mapsRoutingPoints(points);
+// var points = [[-12.939036, -38.340930], [-12.951179, -38.384995], [-12.930545, -38.325996],
+// [-12.930378, -38.357066],[-12.941838, -38.358912],[-12.948697, -38.361701]];
+// mapsRoutingPoints(points);
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const url = urlParams.get('url');
+const hash = urlParams.get('hash');
+const sys = urlParams.get('sys');
+const urlDestino = url + 'getRouterMaps.rule?sys='+sys+'&hash=' + hash;
+console.log(urlDestino);
+fetch(urlDestino)
+	.then(data => {
+		return data.json();
+	})
+	.then(update  => {
+		mapsRoutingPoints(update)
+	});
